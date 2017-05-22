@@ -5,7 +5,7 @@ from initData import init
 # TODO: Fill this in based on where you saved the training and testing data
 
 # load data
-y_train, y_valid, X_train_optimized, X_valid_optimized = init()
+X_train_optimized, X_valid_optimized, X_test_optimized, y_train, y_valid, y_test = init()
 
 ### Train model.
 x = tf.placeholder(tf.float32, (None, 32, 32, 3))
@@ -13,7 +13,7 @@ y = tf.placeholder(tf.int32, (None))
 
 one_hot_y = tf.one_hot(y, 43)
 
-EPOCHS = 1
+EPOCHS = 10
 BATCH_SIZE = 32
 rate = 0.00115
 
@@ -60,3 +60,10 @@ with tf.Session() as sess:
 
     saver.save(sess, './lenet')
     print("Model saved")
+
+
+# with tf.Session() as sess:
+#     saver.restore(sess, tf.train.latest_checkpoint('.'))
+#
+#     test_accuracy = evaluate(X_test_optimized, y_test)
+#     print("Test Accuracy = {:.3f}".format(test_accuracy))
