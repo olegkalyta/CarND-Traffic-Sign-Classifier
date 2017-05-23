@@ -83,11 +83,19 @@ My final model results were:
 * validation set accuracy of 0.954
 * test set accuracy of ?
 
-If an iterative approach was chosen:
-##### Which parameters were tuned? How were they adjusted and why?
+###### What was the first architecture that was tried and why was it chosen?
+I used LaNet network from prev lesson
+###### What were some problems with the initial architecture?
+I did not found any problems with this architecture
+###### How was the architecture adjusted and why was it adjusted?
+No changes except labels number 43 instead of 10
+######  Which parameters were tuned? How were they adjusted and why?
 I experimented with `BATCH_SIZE` and saw, `32` works best for this model
 I experimented with `learning_rate`. When I decreased it, accuracy was worse, so I increased it a bit to `0.00115` and it shown good results.
 
+###### What are some of the important design choices and why were they chosen?
+etc. ?
+Regarding to model architecture, I did not make any design changes
 
 ### Test a Model on New Images
 
@@ -98,7 +106,7 @@ Here are five German traffic signs that I found on the web:
 ![alt text][image2] ![alt text][image3] ![alt text][image4]
 ![alt text][image5] ![alt text][image6]
 
-The first image might be difficult to classify because ...
+The images might be difficult to classify because they another  brightness and contrast, plus sign itself where bigger then training and validation data.
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
@@ -132,9 +140,52 @@ TopKV2(values=array(
          -2.86871958],
        [ 31.66697884,  18.21386147,  12.99901676,  11.73639965,   8.1025362 ],
        [ 30.51384544,  26.96464157,  23.40794563,   3.66663933,
-         -5.31201315]], dtype=float32), indices=array([[ 5,  7, 31, 40, 20],
+         -5.31201315]], dtype=float32), indices=array(
+      [[ 5,  7, 31, 40, 20],
        [ 3,  1,  6,  5,  2],
        [ 1, 25, 18,  0, 31],
        [38, 33, 36, 40, 39],
        [11, 18, 26, 27, 30]])
    )
+
+   My model predicted correctly only second sign. I think the reason is in it's simplicity, it's very schematic and has nice contrast, better then in first sign.
+
+   Sign1 - No stopping
+   Prediction -
+   **Speed limit (80km/h)**
+   Speed limit (100km/h)
+   Wild animals crossing
+   Roundabout mandatory
+   Dangerous curve to the right
+
+   Sign 2 - Speed limit (60km/h)
+   Prediction -
+   **Speed limit (60km/h)**
+   Speed limit (30km/h)
+   End of speed limit (80km/h)
+   Speed limit (80km/h)
+   Speed limit (20km/h)
+
+   Sign 3 - Pedestrian crossing
+   Prediction -
+   **Speed limit (30km/h)**
+   Road work
+   General caution
+   Speed limit (20km/h)
+   Wild animals crossing
+
+   Sign 4 - Stop and give way
+   Prediction -
+   **Keep right**
+   Turn right ahead
+   Go straight or right
+   Roundabout mandatory
+   Keep left
+
+   Sign 5 - General caution
+   Prediction -
+   **Right-of-way at the next intersection**
+   General caution
+   Traffic signals
+   Pedestrians
+   Beware of ice/snow
