@@ -6,7 +6,7 @@ def LeNet(x):
     mu = 0
     sigma = 0.08
 
-    # SOLUTION: Layer 1: Convolutional. Input = 32x32x1. Output = 28x28x6.
+    # SOLUTION: Layer 1: Convolutional. Input = 32x32x3. Output = 28x28x6.
     conv1_W = tf.Variable(tf.truncated_normal(shape=(5, 5, 3, 6), mean=mu, stddev=sigma))
     conv1_b = tf.Variable(tf.zeros(6))
     conv1 = tf.nn.conv2d(x, conv1_W, strides=[1, 1, 1, 1], padding='VALID') + conv1_b
@@ -47,7 +47,7 @@ def LeNet(x):
     # SOLUTION: Activation.
     fc2 = tf.nn.relu(fc2)
 
-    # SOLUTION: Layer 5: Fully Connected. Input = 84. Output = 10.
+    # SOLUTION: Layer 5: Fully Connected. Input = 84. Output = 43.
     fc3_W = tf.Variable(tf.truncated_normal(shape=(84, 43), mean=mu, stddev=sigma))
     fc3_b = tf.Variable(tf.zeros(43))
     logits = tf.matmul(fc2, fc3_W) + fc3_b
