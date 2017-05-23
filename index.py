@@ -2,6 +2,7 @@ import tensorflow as tf
 from lenet import LeNet
 from initData import init
 from testImages import load_images
+from sklearn.utils import shuffle
 # TODO: Fill this in based on where you saved the training and testing data
 
 # load data
@@ -59,20 +60,19 @@ with tf.Session() as sess:
         print("Validation Accuracy = {:.3f}".format(validation_accuracy))
         print()
 
-    merged = tf.summary.merge_all()
-    train_writer = tf.summary.FileWriter('logs/2', sess.graph)
-
     saver.save(sess, './lenet')
     print("Model saved")
 
 
-with tf.Session() as sess:
-    saver.restore(sess, './lenet')
+def predict_new_images():
+    with tf.Session() as sess:
+        saver.restore(sess, './lenet')
 
-    sess.run(tf.global_variables_initializer())
-    test_images = load_images()
+        test_images = load_images()
 
-    r = tf.argmax(logits, 1)
+        predictions = tf.argmax(logits, 1)
 
-    predicted_logits = sess.run(logits, feed_dict={x: test_images})
-    print(predicted_logits)
+        # logits_result = sess.run(logits, feed_dict={x: test_images})
+        prediction_result = sess.run(predictions, feed_dict={x: test_images})
+        top5_softmax_probalibites = sess.run(tf.nn.top_k(logits, k=5), feed_dict={x: test_images})
+        print(prediction_result, top5_softmax_probalibites)
