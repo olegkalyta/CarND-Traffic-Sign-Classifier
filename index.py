@@ -1,7 +1,7 @@
 import tensorflow as tf
-from sklearn.utils import shuffle
 from lenet import LeNet
 from initData import init
+from testImages import load_images
 # TODO: Fill this in based on where you saved the training and testing data
 
 # load data
@@ -28,6 +28,7 @@ training_operation = optimizer.minimize(loss_operation)
 
 correct_prediction = tf.equal(tf.argmax(logits, 1), tf.argmax(one_hot_y, 1))
 accuracy_operation = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+
 saver = tf.train.Saver()
 
 def evaluate(X_data, y_data):
@@ -58,12 +59,20 @@ with tf.Session() as sess:
         print("Validation Accuracy = {:.3f}".format(validation_accuracy))
         print()
 
+    merged = tf.summary.merge_all()
+    train_writer = tf.summary.FileWriter('logs/2', sess.graph)
+
     saver.save(sess, './lenet')
     print("Model saved")
 
 
-# with tf.Session() as sess:
-#     saver.restore(sess, tf.train.latest_checkpoint('.'))
-#
-#     test_accuracy = evaluate(X_test_optimized, y_test)
-#     print("Test Accuracy = {:.3f}".format(test_accuracy))
+with tf.Session() as sess:
+    saver.restore(sess, './lenet')
+
+    sess.run(tf.global_variables_initializer())
+    test_images = load_images()
+
+    r = tf.argmax(logits, 1)
+
+    predicted_logits = sess.run(logits, feed_dict={x: test_images})
+    print(predicted_logits)
