@@ -13,11 +13,12 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./visualization.png "Traffic Sign 1"
-[image5]: ./examples/placeholder.png "Traffic Sign 2"
-[image6]: ./examples/placeholder.png "Traffic Sign 3"
-[image7]: ./examples/placeholder.png "Traffic Sign 4"
-[image8]: ./examples/placeholder.png "Traffic Sign 5"
+[image1]: ./visualization.png "Visualization of training dataset"
+[image2]: ./test_images/1.jpg "Traffic Sign 1"
+[image3]: ./test_images/2.jpg "Traffic Siпn 2"
+[image4]: ./test_images/3.jpg "Traffic Sign 3"
+[image5]: ./test_images/4.jpg "Traffic Sign 4"
+[image6]: ./test_images/5.jpg "Traffic Sign 5"
 
 ## Rubric Points
 #### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.
@@ -52,7 +53,7 @@ Here is an exploratory visualization of the data set. It is a bar chart showing 
 
 As a first step, I decided to convert the images to grayscale because it will decrease input size on first layer from 32x32x3 to 32x32x1. But I using this method I lost prediction accuracy.
 So I decided to follow another offered option - use approximately normalization of images: `(pixel - 128)/ 128`.
-I created [normalizeInput.py](../normalizaInput.py) to do it once overall all input data.
+I created [normalizeInput.py](../master/normalizaInput.py) to do it once overall all input data.
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
@@ -79,7 +80,7 @@ To train the model, I used an proposed LaNet architecture and did not change any
 
 My final model results were:
 * training set accuracy of ?
-* validation set accuracy of 0.94
+* validation set accuracy of 0.954
 * test set accuracy of ?
 
 If an iterative approach was chosen:
@@ -94,8 +95,8 @@ I experimented with `learning_rate`. When I decreased it, accuracy was worse, so
 
 Here are five German traffic signs that I found on the web:
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
+![alt text][image2] ![alt text][image3] ![alt text][image4]
+![alt text][image5] ![alt text][image6]
 
 The first image might be difficult to classify because ...
 
@@ -105,12 +106,14 @@ Here are the results of the prediction:
 
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+| No stopping      		| Speed limit (80km/h) 									|
+| **Speed limit (60km/h)** 	| **Speed limit (60km/h)**										|
+| Pedestrian crossing	| Yield											|
+| Stop and give way	   	| Keep right				 				|
+| General caution		| Right-of-way at the next intersection      							|
 
+
+Model accuracy on new images is **20%**
 
 The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
 
@@ -118,16 +121,20 @@ The model was able to correctly guess 4 of the 5 traffic signs, which gives an a
 
 The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
+[ 5  3  1 38 11]
 
-| Probability         	|     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+TopKV2(values=array(
 
-
-For the second image ...
-
+    [[ 19.29938889,   1.34492826,  -0.45026189,  -4.35485888,
+         -4.64507008],
+       [ 18.41223335,  16.99563217,   8.6574831 ,   7.67988777,   3.6240077 ],
+       [ 15.68963051,   6.95158434,   5.9887023 ,  -1.9844352 ,
+         -2.86871958],
+       [ 31.66697884,  18.21386147,  12.99901676,  11.73639965,   8.1025362 ],
+       [ 30.51384544,  26.96464157,  23.40794563,   3.66663933,
+         -5.31201315]], dtype=float32), indices=array([[ 5,  7, 31, 40, 20],
+       [ 3,  1,  6,  5,  2],
+       [ 1, 25, 18,  0, 31],
+       [38, 33, 36, 40, 39],
+       [11, 18, 26, 27, 30]])
+   )
