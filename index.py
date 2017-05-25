@@ -1,4 +1,5 @@
 import tensorflow as tf
+import numpy as np
 from lenet import LeNet
 from initData import init
 from testImages import load_images
@@ -69,10 +70,9 @@ def predict_new_images():
         saver.restore(sess, './lenet')
 
         test_images = load_images()
+        top5_softmax_probalibites, _ = sess.run(tf.nn.top_k(logits, k=5), feed_dict={x: test_images})
+        print(top5_softmax_probalibites)
 
-        predictions = tf.argmax(logits, 1)
-
-        # logits_result = sess.run(logits, feed_dict={x: test_images})
-        prediction_result = sess.run(predictions, feed_dict={x: test_images})
-        top5_softmax_probalibites = sess.run(tf.nn.top_k(logits, k=5), feed_dict={x: test_images})
-        print(prediction_result, top5_softmax_probalibites)
+        normalizeToOne = sess.run(tf.nn.softmax(top5_softmax_probalibites))
+        np.set_printoptions(formatter={'float': lambda x: "{0:0.3f}".format(x)})
+        print(normalizeToOne)

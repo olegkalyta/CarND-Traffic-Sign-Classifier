@@ -129,26 +129,19 @@ The model was able to correctly guess 4 of the 5 traffic signs, which gives an a
 
 The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
 
-[ 5  3  1 38 11]
-
-TopKV2(values=array(
-
-    [[ 19.29938889,   1.34492826,  -0.45026189,  -4.35485888,
-         -4.64507008],
-       [ 18.41223335,  16.99563217,   8.6574831 ,   7.67988777,   3.6240077 ],
-       [ 15.68963051,   6.95158434,   5.9887023 ,  -1.9844352 ,
-         -2.86871958],
-       [ 31.66697884,  18.21386147,  12.99901676,  11.73639965,   8.1025362 ],
-       [ 30.51384544,  26.96464157,  23.40794563,   3.66663933,
-         -5.31201315]], dtype=float32), indices=array(
-      [[ 5,  7, 31, 40, 20],
-       [ 3,  1,  6,  5,  2],
-       [ 1, 25, 18,  0, 31],
-       [38, 33, 36, 40, 39],
-       [11, 18, 26, 27, 30]])
-   )
+    [[1.000 0.000 0.000 0.000 0.000]
+     [0.805 0.195 0.000 0.000 0.000]
+     [1.000 0.000 0.000 0.000 0.000]
+     [1.000 0.000 0.000 0.000 0.000]
+     [0.971 0.028 0.001 0.000 0.000]]
 
    My model predicted correctly only second sign. I think the reason is in it's simplicity, it's very schematic and has nice contrast, better then in first sign.
+
+   Images 1, 3, 4 are predicted with very low accuracy, there are basically no other competitors in softmax predictions for these images.
+
+   I think this is wrong. And it definitely may be improved in future.
+
+#### **More details on results:**
 
    Sign1 - No stopping
    Prediction -
